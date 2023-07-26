@@ -32,7 +32,7 @@ module.exports.createUser = (req, res, next) => {
     .catch((error) => (
       error.code === 11000
         ? next(new UserExistsError(USER_EXISTS_MESSAGE))
-        : next
+        : next(error)
     ));
 };
 

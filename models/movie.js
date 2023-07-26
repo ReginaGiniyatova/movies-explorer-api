@@ -35,7 +35,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (url) => URL_REGEX.test(url),
-      message: '',
+      message: 'Некорретный url-адрес',
     },
   },
   trailerLink: {
@@ -43,7 +43,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (url) => URL_REGEX.test(url),
-      message: '',
+      message: 'Некорретный url-адрес',
     },
   },
   thumbnail: {
@@ -51,7 +51,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (url) => URL_REGEX.test(url),
-      message: '',
+      message: 'Некорретный url-адрес',
     },
   },
   owner: {

@@ -27,11 +27,11 @@ module.exports.getUserById = (req, res, next) => {
 
 module.exports.updateUserInfo = (req, res, next) => {
   const { _id: userId } = req.user;
-  const { name, about } = req.body;
+  const { name, email } = req.body;
 
   User.findByIdAndUpdate(
     userId,
-    { name, about },
+    { name, email },
     {
       new: true,
       runValidators: true,
@@ -42,7 +42,7 @@ module.exports.updateUserInfo = (req, res, next) => {
     .catch((error) => (
       error.name === 'ValidationError'
         ? next(new InvalidArgumentError(INVALID_ARGUMENTS_MESSAGE))
-        : next
+        : next(error)
     ));
 };
 
@@ -58,25 +58,4 @@ module.exports.getUserInfo = (req, res, next) => {
       throw new NotFoundError(USER_NOT_FOUND_MESSAGE);
     })
     .catch(next);
-};
-
-module.exports.updateUserAvatar = (req, res, next) => {
-  const { _id: userId } = req.user;
-  const { avatar } = req.body;
-
-  User.findByIdAndUpdate(
-    userId,
-    { avatar },
-    {
-      new: true,
-      runValidators: true,
-      upsert: false,
-    },
-  )
-    .then((user) => res.send(user))
-    .catch((error) => (
-      error.name === 'ValidationError'
-        ? next(new InvalidArgumentError(INVALID_ARGUMENTS_MESSAGE))
-        : next
-    ));
 };
